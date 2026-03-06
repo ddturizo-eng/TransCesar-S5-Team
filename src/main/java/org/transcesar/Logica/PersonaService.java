@@ -1,6 +1,6 @@
 package org.transcesar.Logica;
 
-import org.transcesar.dao.PersonaDAO;
+import org.transcesar.Dao.PersonaDAO;
 import org.transcesar.Modelo.Conductor;
 import org.transcesar.Modelo.Pasajero;
 
