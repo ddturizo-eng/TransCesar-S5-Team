@@ -1,8 +1,8 @@
-package org.transcesar.service;
+package org.transcesar.Logica;
 
-import dao.PersonaDAO;
-import model.Conductor;
-import model.Pasajero;
+import org.transcesar.dao.PersonaDAO;
+import org.transcesar.Modelo.Conductor;
+import org.transcesar.Modelo.Pasajero;
 
 import java.util.ArrayList;
 
