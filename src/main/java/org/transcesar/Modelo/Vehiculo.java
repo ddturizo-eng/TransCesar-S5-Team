@@ -8,11 +8,11 @@ public abstract class Vehiculo implements Imprimible {
     private int pasajerosActuales;
     private double tarifaBase;
 
-    public Vehiculo(String placa, String ruta, int capacidadMaxima, int pasajerosActuales, double tarifaBase) {
+    public Vehiculo(String placa, String ruta, int capacidadMaxima, double tarifaBase) {
         this.placa = placa;
         this.ruta = ruta;
         this.capacidadMaxima = capacidadMaxima;
-        this.pasajerosActuales = pasajerosActuales;
+        this.pasajerosActuales = 0;
         this.tarifaBase = tarifaBase;
     }
 
