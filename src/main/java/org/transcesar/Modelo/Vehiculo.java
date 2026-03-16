@@ -24,11 +24,11 @@ public abstract class Vehiculo implements Imprimible {
         this.placa = placa;
     }
 
-    public String getRuta() {
+    public Ruta getRuta() {
         return ruta;
     }
 
-    public void setRuta(String ruta) {
+    public void setRuta(Ruta ruta) {
         this.ruta = ruta;
     }
 
