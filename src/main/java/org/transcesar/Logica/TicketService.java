@@ -23,14 +23,17 @@ public class TicketService {
 
     private TicketDAO ticketDAO;
     private VehiculoService vehiculoService;
+    private FestivoService festivoService;      // <-- NUEVO
     private ArrayList<Ticket> tickets;
 
     public TicketService(TicketDAO ticketDAO,
                          VehiculoService vehiculoService,
+                         FestivoService festivoService,             // <-- NUEVO
                          ArrayList<Pasajero> pasajerosCargados,
                          ArrayList<Vehiculo> vehiculosCargados) {
         this.ticketDAO       = ticketDAO;
         this.vehiculoService = vehiculoService;
+        this.festivoService  = festivoService;                      // <-- NUEVO
         this.tickets         = ticketDAO.cargarTickets(pasajerosCargados, vehiculosCargados);
     }
 
@@ -53,9 +56,10 @@ public class TicketService {
 
     /**
      * Vende un ticket verificando:
-     * 1. Que el vehículo tenga cupos disponibles.
-     * 2. Que el pasajero no haya alcanzado el límite de 3 tickets por día.
-     * Incrementa pasajerosActuales del vehículo si la venta es exitosa.
+     * 1. Que el pasajero no haya alcanzado el límite de 3 tickets por día.
+     * 2. Que el vehículo tenga cupos disponibles.
+     * 3. Si la fecha es festivo, incrementa tarifaBase un 20% antes del descuento.
+     * Orden de cálculo: tarifaBase × 1.20 (si festivo) × (1 - descuento)
      * @return el Ticket generado, o null si no se puede realizar la venta.
      */
     public Ticket venderTicket(Pasajero pasajero, Vehiculo vehiculo, String origen, String destino) {
@@ -76,7 +80,15 @@ public class TicketService {
             return null;
         }
 
-        Ticket ticket = new Ticket(pasajero, vehiculo, fecha, origen, destino);
+        // Cálculo del valor — ORDEN: primero incremento festivo, luego descuento
+        double tarifa = vehiculo.getTarifaBase();
+        if (festivoService.esFestivo(fecha)) {
+            tarifa = tarifa * 1.20;
+            System.out.println("Día festivo: tarifa incrementada un 20% → $" + tarifa);
+        }
+        double valorFinal = tarifa * (1 - pasajero.calcularDescuento());
+
+        Ticket ticket = new Ticket(pasajero, vehiculo, fecha, origen, destino, valorFinal);
 
         // Actualizar contador de pasajeros en el vehículo
         vehiculo.setPasajerosActuales(vehiculo.getPasajerosActuales() + 1);

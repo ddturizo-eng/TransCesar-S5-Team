@@ -24,6 +24,15 @@ public class Ticket implements Calculable, Imprimible {
         this.valorFinal = vehiculo.getTarifaBase() * (1 - pasajero.calcularDescuento());
     }
 
+    public Ticket(Pasajero pasajero, Vehiculo vehiculo, String fecha, String origen, String destino, double valorFinal) {
+        this.pasajero    = pasajero;
+        this.vehiculo    = vehiculo;
+        this.fechaCompra = fecha;
+        this.origen      = origen;
+        this.destino     = destino;
+        this.valorFinal  = valorFinal;
+    }
+
     // Getters
     public Pasajero getPasajero()    { return pasajero; }
     public Vehiculo getVehiculo()    { return vehiculo; }
