@@ -10,7 +10,6 @@ public class Main {
         MenuTickets menuTick = new MenuTickets();
         MenuReportes menuRep = new MenuReportes();
        int op;
-
        do {
         System.out.println("Menu Principal Trancesar S.A.S");
         System.out.println("1. Gestion de Vehiculos");
