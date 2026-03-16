@@ -1,13 +1,9 @@
 package org.transcesar.Modelo;
 
-/**
- * PasajeroAdultoMayor - hereda de Pasajero
- * calcularDescuento() → 0.30 (30% de descuento)
- */
 public class PasajeroAdultoMayor extends Pasajero {
 
-    public PasajeroAdultoMayor(String cedula, String nombre) {
-        super(cedula, nombre);
+    public PasajeroAdultoMayor(String cedula, String nombre, String fechaNacimiento) {
+        super(cedula, nombre, fechaNacimiento);
     }
 
     @Override
@@ -18,15 +14,16 @@ public class PasajeroAdultoMayor extends Pasajero {
     @Override
     public void imprimirDetalle() {
         System.out.println("==== PASAJERO ADULTO MAYOR ====");
-        System.out.println("Cedula    : " + getCedula());
-        System.out.println("Nombre    : " + getNombre());
-        System.out.println("Tipo      : Adulto Mayor");
-        System.out.println("Descuento : 30%");
+        System.out.println("Cedula           : " + getCedula());
+        System.out.println("Nombre           : " + getNombre());
+        System.out.println("Fecha nacimiento : " + getFechaNacimiento());
+        System.out.println("Tipo             : Adulto Mayor");
+        System.out.println("Descuento        : 30%");
         System.out.println("==============================");
     }
 
     @Override
     public String toString() {
-        return getCedula() + ";" + getNombre() + ";AdultoMayor";
+        return getCedula() + ";" + getNombre() + ";" + getFechaNacimiento() + ";AdultoMayor";
     }
 }
