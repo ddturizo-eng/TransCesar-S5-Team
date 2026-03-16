@@ -12,16 +12,20 @@ public class MenuReportes {
     }
 
 
-    // Métodos auxiliares para los filtros específicos
     private void menuTipoVehiculo() {
-        System.out.println("Seleccione tipo: 1. Buseta, 2. MicroBus, 3. Bus");
-        int sel = sc.nextInt();
+        UI.dibujarLinea('─');
+        System.out.println("  Seleccione tipo: 1. Buseta, 2. MicroBus, 3. Bus");
+        System.out.print("  Opcion: ");
+        int sel = Integer.parseInt(sc.nextLine());
         String tipo = (sel == 1) ? "Buseta" : (sel == 2) ? "MicroBus" : "Bus";
         ticketService.listarPorTipoVehiculo(tipo);
     }
+    
     private void menuTipoPasajero() {
-        System.out.println("Seleccione tipo: 1. Regular, 2. Estudiante, 3. AdultoMayor");
-        int sel = sc.nextInt();
+        UI.dibujarLinea('─');
+        System.out.println("  Seleccione tipo: 1. Regular, 2. Estudiante, 3. AdultoMayor");
+        System.out.print("  Opcion: ");
+        int sel = Integer.parseInt(sc.nextLine());
         String tipo = (sel == 1) ? "PasajeroRegular" : (sel == 2) ? "PasajeroEstudiante" : "PasajeroAdultoMayor";
         ticketService.listarPorTipoPasajero(tipo);
     }
@@ -30,37 +34,53 @@ public class MenuReportes {
         int opcion;
 
         do {
-            System.out.println("\n===== GESTIÓN DE REPORTES Y FILTROS =====");
-            // Opciones del Taller 2 (se mantienen)
-            System.out.println("1. Total Recaudado (Histórico)");
-            System.out.println("2. Pasajeros por tipo");
-            System.out.println("3. Vehículo con más tickets vendidos");
+            System.out.println();
+            System.out.println("╔════════════════════════════════════════════════════╗");
+            System.out.println("║        [Q] MODULO DE REPORTES Y FILTROS            ║");
+            System.out.println("╠════════════════════════════════════════════════════╣");
+            System.out.println("║  1. Total Recaudado (Historico)                    ║");
+            System.out.println("║  2. Pasajeros por tipo                             ║");
+            System.out.println("║  3. Vehiculo con mas tickets vendidos              ║");
+            System.out.println("║  4. Tickets por fecha (Filtro)                    ║");
+            System.out.println("║  5. Tickets por tipo de vehiculo                  ║");
+            System.out.println("║  6. Tickets por tipo de pasajero                  ║");
+            System.out.println("║  7. Resumen del dia actual                         ║");
+            System.out.println("║  0. Volver al Menu Principal                       ║");
+            System.out.println("╚════════════════════════════════════════════════════╝");
+            System.out.print("  Seleccione una opcion: ");
 
-            // NUEVAS OPCIONES - Requerimiento 3 [cite: 99]
-            System.out.println("4. Tickets por fecha (Filtro)");
-            System.out.println("5. Tickets por tipo de vehículo");
-            System.out.println("6. Tickets por tipo de pasajero");
-            System.out.println("7. Resumen del día actual");
-            System.out.println("0. Volver");
-            System.out.print("Seleccione una opción: ");
-
-            opcion = sc.nextInt();
-            sc.nextLine();
+            opcion = Integer.parseInt(sc.nextLine());
+            
             switch (opcion){
                 case 1:
-                    System.out.println("Total recaudado: $" + ticketService.calcularTotalRecaudado());
+                    UI.dibujarLinea('─');
+                    System.out.println("  TOTAL RECAUDADO (HISTORICO)");
+                    UI.dibujarLinea('─');
+                    System.out.println("  Total: $" + ticketService.calcularTotalRecaudado());
+                    UI.dibujarLinea('─');
                     break;
-                    case 2:
-                        ticketService.contarPasajerosPorTipo();
-                        break;
-                 case 3:
-                     ticketService.obtenerVehiculoConMasTickets();
-                     break;
+                case 2:
+                    UI.dibujarLinea('─');
+                    System.out.println("  PASAJEROS POR TIPO");
+                    UI.dibujarLinea('─');
+                    ticketService.contarPasajerosPorTipo();
+                    UI.dibujarLinea('─');
+                    break;
+                case 3:
+                    UI.dibujarLinea('─');
+                    System.out.println("  VEHICULO CON MAS TICKETS");
+                    UI.dibujarLinea('─');
+                    ticketService.obtenerVehiculoConMasTickets();
+                    UI.dibujarLinea('─');
+                    break;
                 case 4:
-                    System.out.print("Ingrese la fecha (YYYY-MM-DD): ");
+                    System.out.print("  Ingrese la fecha (YYYY-MM-DD): ");
                     String fecha = sc.nextLine();
+                    UI.dibujarLinea('─');
+                    System.out.println("  TICKETS DEL: " + fecha);
+                    UI.dibujarLinea('─');
                     ticketService.listarTicketsPorFecha(fecha);
-                    //System  .out.println("Total de tickets vendidos el " + fecha + ": " + ticketService.calcularTotalRecaudado());
+                    UI.dibujarLinea('─');
                     break;
                 case 5:
                     menuTipoVehiculo();
@@ -68,19 +88,19 @@ public class MenuReportes {
                 case 6:
                     menuTipoPasajero();
                     break;
-
                 case 7:
+                    UI.dibujarLinea('═');
                     ticketService.resumenDiaActual();
+                    UI.dibujarLinea('═');
                     break;
                 case 0:
-                    System.out.println("Volviendo al menú principal...");
+                    System.out.println("  Volviendo al menu principal...");
                     break;
                 default:
-                    System.out.println("Opción no válida, intente nuevamente.");
+                    UI.error("Opcion invalida");
             }
 
         }while ((opcion !=0));
-
 
 
             }

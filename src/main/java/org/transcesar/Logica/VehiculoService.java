@@ -8,14 +8,14 @@ import java.util.ArrayList;
 
 public class VehiculoService {
 
-    private RutaDAO rutaDAO;
+    private RutaService rutaService;
     private VehiculoDao dao;
     private ArrayList<Vehiculo> vehiculos;
 
-    public VehiculoService(RutaDAO rutaDAO) {
-        this.rutaDAO   = rutaDAO;
-        this.dao       = new VehiculoDao(rutaDAO);
-        this.vehiculos = dao.cargarVehiculos(); // carga los vehículos del archivo al iniciar
+    public VehiculoService(VehiculoDao dao , RutaService rutaService) {
+        this.dao = dao;
+        this.rutaService = rutaService;
+        this.vehiculos = dao.cargarVehiculos(); // Se cargan los vehículos usando el DAO que ya recibió el RutaDAO en Main
     }
 
     public boolean registrarVehiculo(Vehiculo v) {
@@ -44,5 +44,9 @@ public class VehiculoService {
             if (v.getPlaca().equalsIgnoreCase(placa)) return v;
         }
         return null;
+    }
+
+    public ArrayList<Vehiculo> getVehiculos() {
+        return vehiculos;
     }
 }
