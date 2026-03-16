@@ -176,6 +176,63 @@ public class TicketService {
         }
         tickets.forEach(Ticket::imprimirDetalle);
     }
+    //Retorna tickets cuya fechaCompra coincide con la fecha dada
+    public void listarTicketsPorFecha(String fecha) {
+        boolean encontrado = false;
+        for (Ticket t : tickets) {
+            if (t.getFechaCompra().equals(fecha)) {
+                t.imprimirDetalle();
+                encontrado = true;
+            }
+        }
+        if (!encontrado) {
+            System.out.println("No se encontraron tickets para la fecha " + fecha);
+        }
+
+    }
+
+    //Tickets cuyo vehículo es del tipo indicado: Buseta/MicroBus/Bus
+    public void listarPorTipoVehiculo(String tipo) {
+
+    boolean encontrado = false;
+        System.out.println("=== TICKETS PARA VEHÍCULOS TIPO: " + tipo + " ===");
+
+    for (Ticket t : tickets) {
+        String tipoVehiculo = t.getVehiculo().getClass().getSimpleName();
+        if (tipoVehiculo.equalsIgnoreCase(tipo)) {
+            t.imprimirDetalle();
+            encontrado = true;
+        }
+
+    }if (!encontrado){
+        System.out.println("No se encontraron tickets para vehículos del tipo " + tipo);
+        }
+
+
+    }
+
+    public void listarPorTipoPasajero(String tipo) {
+        boolean encontrado = false;
+        System.out.println("=== TICKETS PARA PASAJEROS TIPO: " + tipo + " ===");
+
+        for (Ticket t : tickets) {
+            String tipoPasajero = t.getPasajero().getClass().getSimpleName();
+            if (tipoPasajero.equalsIgnoreCase(tipo)) {
+                t.imprimirDetalle();
+                encontrado = true;
+            }
+        }
+        if (!encontrado){
+            System.out.println("No se encontraron tickets para pasajeros del tipo " + tipo);
+        }
+    }
+    public void resumenDiaActual() {
+        String fecha = LocalDate.now().toString();
+        System.out.println("===== RESUMEN DEL DÍA " + fecha + " =====");
+        listarTicketsPorFecha(fecha);
+        System.out.println("Total recaudado hoy: $" + calcularTotalRecaudado());
+        contarPasajerosPorTipo();
+    }
 
     public ArrayList<Ticket> getTickets() {
         return tickets;
