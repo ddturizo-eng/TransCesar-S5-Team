@@ -75,18 +75,21 @@ public class PersonaDAO {
             while ((linea = br.readLine()) != null) {
                 if (linea.trim().isEmpty()) continue;
                 String[] campos = linea.split(";");
-                // cedula;nombre;tipo
-                if (campos.length == 3) {
-                    String tipo = campos[2].trim();
+                // cedula;nombre;fechaNacimiento;tipo
+                if (campos.length == 4) {
+                    String cedula = campos[0];
+                    String nombre = campos[1];
+                    String fecha  = campos[2];
+                    String tipo   = campos[3].trim();
                     switch (tipo) {
                         case "Regular":
-                            lista.add(new PasajeroRegular(campos[0], campos[1]));
+                            lista.add(new PasajeroRegular(cedula, nombre, fecha));
                             break;
                         case "Estudiante":
-                            lista.add(new PasajeroEstudiante(campos[0], campos[1]));
+                            lista.add(new PasajeroEstudiante(cedula, nombre, fecha));
                             break;
                         case "AdultoMayor":
-                            lista.add(new PasajeroAdultoMayor(campos[0], campos[1]));
+                            lista.add(new PasajeroAdultoMayor(cedula, nombre, fecha));
                             break;
                         default:
                             System.out.println("Tipo de pasajero desconocido: " + tipo);
