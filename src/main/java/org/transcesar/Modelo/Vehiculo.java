@@ -3,12 +3,12 @@ package org.transcesar.Modelo;
 public abstract class Vehiculo implements Imprimible {
 
     private String placa;
-    private String ruta;
+    private Ruta ruta;
     private int capacidadMaxima;
     private int pasajerosActuales;
     private double tarifaBase;
 
-    public Vehiculo(String placa, String ruta, int capacidadMaxima, double tarifaBase) {
+    public Vehiculo(String placa, Ruta ruta, int capacidadMaxima, double tarifaBase) {
         this.placa = placa;
         this.ruta = ruta;
         this.capacidadMaxima = capacidadMaxima;
