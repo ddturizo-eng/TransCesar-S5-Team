@@ -32,6 +32,7 @@ public class Ruta implements Imprimible {
     }
 
     public String getCiudadOrigen() {
+
         return ciudadOrigen;
     }
     public void setCiudadOrigen(String ciudadOrigen) {
@@ -39,6 +40,7 @@ public class Ruta implements Imprimible {
     }
 
     public String getCiudadDestino() {
+
         return ciudadDestino;
     }
     public void setCiudadDestino(String ciudadDestino) {
@@ -46,9 +48,11 @@ public class Ruta implements Imprimible {
     }
 
     public double getDistanciaKm() {
+
         return distanciaKm;
     }
     public void setDistanciaKm(double distanciaKm) {
+
         this.distanciaKm = distanciaKm;
     }
 
