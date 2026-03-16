@@ -19,6 +19,8 @@ import java.util.Map;
  */
 public class TicketService {
 
+    private static final int LIMITE_TICKETS_POR_DIA = 3;
+
     private TicketDAO ticketDAO;
     private VehiculoService vehiculoService;
     private ArrayList<Ticket> tickets;
@@ -33,16 +35,47 @@ public class TicketService {
     }
 
     /**
-     * Vende un ticket verificando que el vehículo tenga cupos disponibles.
+     * Cuenta cuántos tickets tiene un pasajero (por cédula) en una fecha específica.
+     * @param cedula Cédula del pasajero
+     * @param fecha  Fecha en formato YYYY-MM-DD
+     * @return número de tickets del pasajero en esa fecha
+     */
+    public int contarTicketsPasajeroPorFecha(String cedula, String fecha) {
+        int contador = 0;
+        for (Ticket t : tickets) {
+            if (t.getPasajero().getCedula().equals(cedula) &&
+                    t.getFechaCompra().equals(fecha)) {
+                contador++;
+            }
+        }
+        return contador;
+    }
+
+    /**
+     * Vende un ticket verificando:
+     * 1. Que el vehículo tenga cupos disponibles.
+     * 2. Que el pasajero no haya alcanzado el límite de 3 tickets por día.
      * Incrementa pasajerosActuales del vehículo si la venta es exitosa.
-     * @return el Ticket generado, o null si no hay cupos.
+     * @return el Ticket generado, o null si no se puede realizar la venta.
      */
     public Ticket venderTicket(Pasajero pasajero, Vehiculo vehiculo, String origen, String destino) {
+
+        String fecha = LocalDate.now().toString();
+
+        // Validación 1: límite de 3 tickets por pasajero por día
+        int ticketsHoy = contarTicketsPasajeroPorFecha(pasajero.getCedula(), fecha);
+        if (ticketsHoy >= LIMITE_TICKETS_POR_DIA) {
+            System.out.println("El pasajero " + pasajero.getNombre() +
+                    " ya tiene " + ticketsHoy + " tickets para hoy. No se puede realizar la venta.");
+            return null;
+        }
+
+        // Validación 2: cupos disponibles en el vehículo
         if (!vehiculoService.tieneCuposDisponibles(vehiculo)) {
             System.out.println("ERROR: El vehículo " + vehiculo.getPlaca() + " no tiene cupos disponibles.");
             return null;
         }
-        String fecha  = LocalDate.now().toString();
+
         Ticket ticket = new Ticket(pasajero, vehiculo, fecha, origen, destino);
 
         // Actualizar contador de pasajeros en el vehículo
@@ -54,7 +87,7 @@ public class TicketService {
         return ticket;
     }
 
-    // Estadísticas
+    // ─── Estadísticas ────────────────────────────────────────────────────────
 
     /**
      * Calcula el total de dinero recaudado en todas las ventas.
@@ -100,7 +133,7 @@ public class TicketService {
             return null;
         }
 
-        HashMap<String, Integer> conteo        = new HashMap<>();
+        HashMap<String, Integer> conteo         = new HashMap<>();
         HashMap<String, Vehiculo> mapaVehiculos = new HashMap<>();
 
         for (Ticket t : tickets) {

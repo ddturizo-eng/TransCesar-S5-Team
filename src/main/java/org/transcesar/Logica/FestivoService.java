@@ -23,7 +23,7 @@ public class FestivoService {
         festivos.add(new Festivo("2026-12-08", "Inmaculada Concepción"));
         festivos.add(new Festivo("2026-12-25", "Navidad"));
     }
-    
+
     public boolean esFestivo(String fecha) {
         if (fecha == null || !fecha.matches("\\d{4}-\\d{2}-\\d{2}")) {
             throw new IllegalArgumentException("La fecha debe estar en formato YYYY-MM-DD");
