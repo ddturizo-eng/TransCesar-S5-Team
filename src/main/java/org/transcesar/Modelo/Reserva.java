@@ -36,23 +36,49 @@ public class Reserva implements Imprimible {
 
     // Getters y Setters
 
-    public String   getCodigoReserva()               { return codigoReserva; }
-    public void     setCodigoReserva(String c)       { this.codigoReserva = c; }
+    public String   getCodigoReserva(){
+        return codigoReserva;
+    }
+    public void     setCodigoReserva(String c){
+        this.codigoReserva = c;
+    }
 
-    public Pasajero getPasajero()                    { return pasajero; }
-    public void     setPasajero(Pasajero p)          { this.pasajero = p; }
+    public Pasajero getPasajero(){
+        return pasajero;
+    }
+    public void     setPasajero(Pasajero p){
+        this.pasajero = p;
+    }
 
-    public Vehiculo getVehiculo()                    { return vehiculo; }
-    public void     setVehiculo(Vehiculo v)          { this.vehiculo = v; }
+    public Vehiculo getVehiculo(){
+        return vehiculo;
+    }
 
-    public String   getFechaCreacion()               { return fechaCreacion; }
-    public void     setFechaCreacion(String f)       { this.fechaCreacion = f; }
+    public void setVehiculo(Vehiculo v){
+        this.vehiculo = v;
+    }
 
-    public String   getFechaViaje()                  { return fechaViaje; }
-    public void     setFechaViaje(String f)          { this.fechaViaje = f; }
+    public String getFechaCreacion(){
+        return fechaCreacion;
+    }
+    public void setFechaCreacion(String f){
+        this.fechaCreacion = f;
+    }
 
-    public String   getEstado()                      { return estado; }
-    public void     setEstado(String estado)         { this.estado = estado; }
+    public String getFechaViaje(){
+        return fechaViaje;
+    }
+    public void setFechaViaje(String f){
+        this.fechaViaje = f;
+    }
+
+    public String getEstado(){
+        return estado;
+    }
+
+    public void setEstado(String estado){
+        this.estado = estado;
+    }
 
     // Métodos de negocio
 
