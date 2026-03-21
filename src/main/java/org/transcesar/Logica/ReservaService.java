@@ -5,6 +5,9 @@ import org.transcesar.Modelo.Reserva;
 import org.transcesar.Modelo.Ticket;
 import org.transcesar.Modelo.Vehiculo;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,14 +40,11 @@ public class ReservaService {
 
         // Regla 3: cancelar reservas vencidas antes de crear
         
-        for (Reserva r : reservas) {
-            if (r.estaVencida()) {
-                r.setEstado(Reserva.CANCELADA);
-            }
-        }
+        verificarVencidas();
 
         String codigoReserva = "RES-" + contador++;
-        String fechaCreacion = new java.util.Date().toString();
+        String fechaCreacion = LocalDateTime.now()
+                .format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
         Reserva nueva = new Reserva(codigoReserva, pasajero, vehiculo, fechaCreacion, fechaViaje);
         reservas.add(nueva);
         return true;
@@ -95,7 +95,8 @@ public class ReservaService {
         for (Reserva r : reservas) {
             if (r.getCodigoReserva().equals(codigo)) {
                 r.setEstado(Reserva.CONVERTIDA);
-                ticketService.venderTicket(r.getPasajero(), r.getVehiculo(), "", r.getFechaViaje());
+                String hoy = LocalDate.now().toString();
+                ticketService.venderTicket(r.getPasajero(), r.getVehiculo(), hoy, r.getFechaViaje());
                 return true;
             }
         }
